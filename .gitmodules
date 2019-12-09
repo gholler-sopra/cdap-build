@@ -10,10 +10,6 @@
 	path = security-extensions/cdap-security-extn
 	url = https://github.com/Guavus/cdap-security-extn.git
 	branch = develop_guavus_2.6.5
-[submodule "app-artifacts/dre"]
-	path = app-artifacts/dre
-	url = https://github.com/Guavus/dre.git
-	branch = develop_guavus_2.6.5
 [submodule "cdap-ambari-service"]
 	path = cdap-ambari-service
 	url = https://github.com/Guavus/cdap-ambari-service.git
