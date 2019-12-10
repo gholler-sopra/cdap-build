@@ -43,6 +43,9 @@ pipeline {
 		cd .. && \
 		cd cdap-ambari-service && \
 		./build.sh && \
+                cd .. && \
+                cd twill && \
+                mvn clean install -DskipTests -Dcheckstyle.skip && \
 		cd .. && \
 		cd cdap && \
 		mvn clean install -DskipTests -Dcheckstyle.skip && \
