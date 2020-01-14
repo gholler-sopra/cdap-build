@@ -24,13 +24,13 @@ do
   branch="${arrayT[$i+2]}";
   url="${arrayT[$i+1]}";
   cd $directory;
-  grep -lr --include=pom.xml "5.1.216" * | xargs sed -i -e 's/5.1.216/5.1.217/g';
+  git checkout $branch;
+  grep -lr --include=pom.xml "5.1.218" * | xargs sed -i -e 's/5.1.218/5.1.217/g';
   find . -name "pom.xml-e" -type f -delete;
   find . -name "*.iml" -type f -delete;
-  git checkout $branch;
   git add --A;
   git commit -m 'version Changed';
-  git push origin $branch;
+  git push origin --force $branch;
   cd $home_dir;
 #  echo  " cd $directory; git checkout $branch; echo changeSomething; git add -A; git commit -m 'version changed'; git push ; cd ..; ";
 
