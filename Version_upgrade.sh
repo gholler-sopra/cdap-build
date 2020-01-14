@@ -4,7 +4,6 @@
 #		git submodule update --remote && \
 #		git submodule update --init --recursive --remote
 
-
 ## declare an array variable
 declare -a arrayT=()
 for item in `git config --file .gitmodules --get-regexp submodule  | awk '{ print $2 }'`
@@ -19,6 +18,7 @@ home_dir=$(pwd)
 
 read -p "Enter Old Version: "  old_version
 read -p "Enter New Version: "  new_version
+#echo $new_version;
 
 # use for loop to read all values and indexes
 for (( i=0; i<${arraylength}; i=i+3 ));
@@ -31,9 +31,9 @@ do
   grep -lr --include=pom.xml "$old_version" * | xargs sed -i -e 's/$old_version/$new_version/g';
   find . -name "pom.xml-e" -type f -delete;
   find . -name "*.iml" -type f -delete;
-#  git add -A;
-#  git commit -m 'version Changed';
-#  git push origin --force $branch;
+  git add -A;
+  git commit -m 'version Changed';
+  git push origin --force $branch;
   cd $home_dir;
 #  echo  " cd $directory; git checkout $branch; echo changeSomething; git add -A; git commit -m 'version changed'; git push ; cd ..; ";
 
