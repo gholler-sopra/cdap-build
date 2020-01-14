@@ -1,3 +1,9 @@
+git submodule foreach --recursive git clean -xfd && \
+		git reset --hard  && \
+		git submodule foreach --recursive git reset --hard && \
+		git submodule update --remote && \
+		git submodule update --init --recursive --remote
+
 #!/bin/bash
 ## declare an array variable
 declare -a arrayT=()
