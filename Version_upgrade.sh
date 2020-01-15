@@ -23,7 +23,7 @@ do
   url="${arrayT[$i+1]}";
   cd $directory;
   git checkout $branch;
-  grep -lr --include=pom.xml "5.1.217" * | xargs sed -i -e 's/5.1.217/5.1.216/g';
+  grep -lr --include=pom.xml "5.1.216" * | xargs sed -i -e 's/5.1.216/5.1.217/g';
   find . -name "pom.xml-e" -type f -delete;
   find . -name "*.iml" -type f -delete;
   git add -A;
