@@ -1,9 +1,10 @@
 ambari_port: "8080"
 protocol_value: "http"
-ambari_admin_user: ""
-ambari_admin_password: ""
-ambari_host: "hostname-of-management-node"
 node_cluster_name: "cluster-name"
+install_env: "dev"
+cdap_master: ['raf010-mst-01.cloud.in.guavus.com','raf010-mst-02.cloud.in.guavus.com']
+ssh_user: 'guavus'
+ssh_password: 'guavus@123'
 config:
   cdap-site:
     data.tx.num.cores: 1
@@ -17,7 +18,6 @@ config:
     security.auth.server.ssl.truststore.password: "changeit"
     security.auth.server.ssl.truststore.type: "JKS"
     app.program.spark.compat: "spark2_2.11"
-    security.authentication.username.caseconversion: "lower"
     program.container.dist.jars: "/etc/security/keytabs/cdap.headless.keytab"
     security.enabled: "true"
     ssl.external.enabled: "true"
@@ -43,6 +43,14 @@ config:
     security.authorization.enabled: "true"
     security.authorization.extension.jar.path: "/opt/cdap/master/ext/security/cdap-ranger-binding-0.1.4.jar"
     security.authorization.extension.extra.classpath: "/usr/local/ranger-cdap-conf/"
+    kerberos.auth.enabled: "true"
+    cdap.master.kerberos.keytab: "/etc/security/keytabs/cdap.service.keytab"
+    cdap.master.kerberos.principal: "cdap/_HOST@GVS.GGN"
+    dev:
+      security.authentication.username.caseconversion: "lower"
+    prod:
+      security.authentication.username.caseconversion: "camelcase"
+      security.authentication.handler.usernameTitleCaseDelim: "."
   cdap-security:
     security.auth.server.ssl.keystore.path: "/etc/cdap/keystore.jks"
     security.auth.server.ssl.keystore.password: "changeit"
@@ -54,5 +62,3 @@ config:
     router.ssl.keystore.type: "JKS"
     dashboard.ssl.cert: "/etc/cdap/cdap-ui-cert.pem"
     dashboard.ssl.key: "/etc/cdap/cdap-ui-key.key"
-    security.authentication.handler.bindDn: ""
-    security.authentication.handler.bindPassword: ""
