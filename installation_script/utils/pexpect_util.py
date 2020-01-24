@@ -11,8 +11,11 @@ class PexpectUtil(object):
 
         child = pexpect.spawn('ssh -o StrictHostKeyChecking=no %s@%s' %(self.ssh_user, ssh_hostname))
         child.logfile = open("data/remote.log", "a+")
-        child.expect ('password: ')
-        child.sendline(self.ssh_password)
+        try:
+            child.expect ('password: ')
+            child.sendline(self.ssh_password)
+        except:
+            child.expect ('$')
         child.expect('$')
         child.sendline(cmd)
         child.expect('$')

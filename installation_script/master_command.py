@@ -31,7 +31,7 @@ class master_command(object):
         logging.info("Executing command : %s on remote node" % cmd)
         self.p_obj.pexpect_cmd(cmd,hostname)
         cmd = '/usr/sbin/logrotate -d /etc/logrotate.d/cdap'
-        logging.info("Executing command : %s" % cmd)
+            logging.info("Executing command : %s" % cmd)
         self.p_obj.pexpect_cmd(cmd,hostname)
 
 
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     for i in range(0,len(master_cmd.cdap_master)):
 
         master_cmd.enable_rotation(master_cmd.cdap_master[i])
-        master_cmd.ranger_jar()
+        master_cmd.ranger_jar(master_cmd.cdap_master[i])
 
 
 
