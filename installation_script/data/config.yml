@@ -1,10 +1,8 @@
 ambari_port: "8080"
 protocol_value: "http"
-node_cluster_name: "raf010"
+node_cluster_name: "cluster-name"
 install_env: "dev"
-cdap_master: ['raf010-mst-01.cloud.in.guavus.com','raf010-mst-02.cloud.in.guavus.com']
-ssh_user: 'guavus'
-ssh_password: 'guavus@123'
+namespaces: ["cdap","dev_network"]
 config:
   cdap-site:
     data.tx.num.cores: 1

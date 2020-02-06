@@ -11,6 +11,8 @@ Below python packages are used in script -
 3. getpass
 4. logging
 5. pexpect
+6. ast
+7. datetime
 
 It works on python2.7
 
@@ -23,14 +25,11 @@ In Upgrade doc all the command in section 6 Enabling Configurations will be exec
       vi data/config.yml
 
    ii) Change configuration according to setup mostly setup related configuration will be -
-       hive.server2.jdbc.url - hive jbdc url
-       node_cluster_name - ambari cluster name
+       hive.server2.jdbc.url - hive jbdc url -> to be get from ambari -> hive -> HiveServer2 JDBC URL -> copy url and paste in configuration
+       node_cluster_name - ambari cluster name -> login to ambari and get cluster name
        program.container.dist.jars - comma (,) seperated keytabs in namespaces used
-       cdap_master  - list of cdap nodes
-       ssh_user     - for cdap nodes
-       ssh_password - for cdap nodes
-       install_env -> It takes two values dev or prod . If installing on guavus environment give value as "dev". If installing on
-       JIO environment give value as "prod".
+       install_env -> It takes two values dev or prod . If installing on guavus environment give value as "dev". If installing on JIO environment give value as "prod".
+       namespaces -> Value of namespaces to be added to take backup of For Eg- For default namespace provide cdap and for dev_netowrk value would be ["cdap","dev_network"]
 
 2. Command line argument are ambari username, ambari password and ambari hostname.
 
@@ -42,6 +41,20 @@ In Upgrade doc all the command in section 6 Enabling Configurations will be exec
 
    python master_command.py
 
-5. Logs can be seen at path -
+   Note -> script to be run on both cdap master nodes
+
+5. Run below script to take snapshots of hbase tables -
+   Need to run script with hbase user perform below steps to run
+   i)    sudo su hbase          (Provide password)
+   ii)   klist -kte /etc/security/keytabs/hbase.service.keytab   (Get principal name)
+   iii)  kinit -kt /etc/security/keytabs/hbase.service.keytab <principal name get from step ii>
+   iv)   python hbase_backup.py
+
+6. Logs can be seen at path -
 
    data/execution.log
+   data/hbase.log
+   data/master_commands.log
+   data/hbase_snapshots.log
+
+7. Note after execution if you want to delete logs you can delete from above specified location.

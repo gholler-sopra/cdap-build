@@ -1,8 +1,9 @@
 import pexpect
-import sys
 from pexpect import pxssh
 import re
-class PexpectUtil(object):
+
+class PexpectUtil( object ):
+
 
     def __init__(self, ssh_user , ssh_password):
         self.ssh_user = ssh_user
@@ -10,19 +11,17 @@ class PexpectUtil(object):
 
 
     def pexpect_cmd(self,cmd, ssh_hostname):
-	print cmd
-	print ssh_hostname
+        print cmd
+        print ssh_hostname
         child = pexpect.spawn('ssh -o StrictHostKeyChecking=no %s@%s' %(self.ssh_user, ssh_hostname))
         child.logfile = open("data/remote.log", "a+")
         try:
-	    print "in try"
             child.expect(['.*assword:.*'])
             child.sendline(self.ssh_password)
             child.expect(['.*$'])
         except:
-	    print "in except"
             child.expect(['.*$'])
-	print "executing command : %s" %cmd
+        print "executing command : %s" %cmd
         child.sendline(cmd)
         child.expect(['.*$'],timeout=1000)
         child.sendline('exit')
@@ -52,14 +51,13 @@ class PexpectUtil(object):
 
         except pxssh.ExceptionPxssh as e:
             print("pxssh failed on login.")
-	    print e
-
+            print e
 
     def pexpect_scp(self,cmd, hostname):
 
         try:
             var_child = pexpect.spawn(cmd)
-            i = var_child.expect([".*assword.*", pexpect.EOF])
+            i = var_child.expect([".*assword.*"])
             if i == 0:
                 var_child.sendline(self.ssh_password)
                 j = var_child.expect([".*password.*"])
@@ -70,7 +68,7 @@ class PexpectUtil(object):
                     pass
             elif i == 1:
                 print "Got the key or connection timeout"
-                pass
+
         except Exception as e:
             print "Oops Something went wrong buddy"
             print e
