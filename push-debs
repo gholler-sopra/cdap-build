@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#set -x
+
+TMP_DEB_DIR=/tmp/deb_dir
+BASE_REPO_DIR=/var/www/repos/ubuntu18/cdap/5.1
+COMPONENT=CDAP
+
+mkdir -p $TMP_DEB_DIR
+
+rm -f $TMP_DEB_DIR/*.deb 2>/dev/null
+
+find . -name *.deb -exec cp -f {} $TMP_DEB_DIR \; 
+
+#exclude the plugin
+rm $TMP_DEB_DIR/cdap-ambari-service*.deb
+
+for deb in $TMP_DEB_DIR/*.deb
+do
+	package=$(basename $deb|sed 's/_.*//')
+	echo "push $package to repo"
+	reprepro -Vb $BASE_REPO_DIR remove $COMPONENT $package
+	reprepro -b $BASE_REPO_DIR includedeb $COMPONENT $deb
+done
+

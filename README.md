@@ -119,3 +119,8 @@ grep -lr --include=pom.xml "5.1.201" * | xargs sed -i -e 's/5.1.201/5.1.202/g'
 Above command is to upgrade from version 5.1.201 to 5.1.202
 
 In All submodules change the version of variable cdap.version inside the pom.xml to the version we are upgrading
+
+## Notes deploiement GHO
+La configuration par defaut ne permet pas un demarrage correct. 
+Ajouter le parametre twill.yarn.am.memory.mb=1024 (au lieu de 512 Mo) dans custom cdap-site
+Augmenter (doubler) les valeurs des parametres memoire du premier onglet
